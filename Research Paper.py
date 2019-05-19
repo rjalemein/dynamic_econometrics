@@ -255,6 +255,19 @@ for key, value in result4[4].items():
     print('\t%s: %.3f' % (key, value))
     
 # ARIMA T10YFFM
+model4 = ARIMA(t10yffm, order=(1, 0, 0))
+model_fit4 = model4.fit(disp=0)
+print(model_fit4.summary())
+
+residuals = pd.DataFrame(model_fit4.resid)
+plot_acf(residuals, lags=100)
+residuals.plot()
+pyplot.show()
+residuals.plot(kind='kde')
+pyplot.show()
+print(residuals.describe())
+
+# Residuals have autocorrelation
 model4 = ARIMA(t10yffm, order=(1, 0, 1))
 model_fit4 = model4.fit(disp=0)
 print(model_fit4.summary())
